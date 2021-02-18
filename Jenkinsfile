@@ -20,29 +20,19 @@ pipeline {
                 sh 'composer update'
                 sh 'cp .env.example .env'
                 sh 'php artisan key:generate'
-            }
-        }
-        stage('php test') {
-            steps {
                 sh 'php artisan test'
             }
         }
-        // stage('Checkout Repo') {
-        //     steps {
-        //         git url: 'https://github.com/monosparta/gohiking-server.git', branch: 'main'
-        //         sh 'ls -al'
-        //     }
-        // }
-        // stage('Make Zip Artifacts') {
-        //     steps {
-        //         zip zipFile: 'gohiking-server.zip'
-        //     }
-        // }
+        stage('Make Zip Artifacts') {
+           steps {
+               zip zipFile: 'gohiking-server.zip', overwrite: true
+           }
+        }
     }
     
     post {
         always {
-            archiveArtifacts artifacts: '*.json', fingerprint: true
+            archiveArtifacts artifacts: '*.zip', fingerprint: true
         }
     }
 }
