@@ -16,12 +16,16 @@ pipeline {
             }
         }
         stage('Env Init') {
-            sh 'composer update'
-            sh 'cp .env.example .env'
-            sh 'php artisan key:generate'
+            steps {
+                sh 'composer update'
+                sh 'cp .env.example .env'
+                sh 'php artisan key:generate'
+            }
         }
         stage('php test') {
-            sh 'php artisan test'
+            steps {
+                sh 'php artisan test'
+            }
         }
         // stage('Checkout Repo') {
         //     steps {
