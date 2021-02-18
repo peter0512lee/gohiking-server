@@ -15,7 +15,7 @@ pipeline {
                 sh 'composer --version'
             }
         }
-        stage('Env Init') {
+        stage('Build') {
             steps {
                 sh 'composer update'
                 sh 'cp .env.example .env'
