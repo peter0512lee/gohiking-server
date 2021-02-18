@@ -15,6 +15,14 @@ pipeline {
                 sh 'composer --version'
             }
         }
+        stage('Env Init') {
+            sh 'composer update'
+            sh 'cp .env.example .env'
+            sh 'php artisan key:generate'
+        }
+        stage('php test') {
+            sh 'php artisan test'
+        }
         // stage('Checkout Repo') {
         //     steps {
         //         git url: 'https://github.com/monosparta/gohiking-server.git', branch: 'main'
